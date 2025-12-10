@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoJSON Viewer - Universal Map Preview</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .file-selector {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .file-input-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .file-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .load-button {
+            padding: 10px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .load-button:hover {
+            background: #5568d3;
+        }
+        
+        .load-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .container {
+            display: flex;
+            height: calc(100vh - 160px);
+        }
+        
+        .sidebar {
+            width: 320px;
+            background: white;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .info-card {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .info-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .info-label {
+            color: #666;
+        }
+        
+        .info-value {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .legend h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid rgba(0,0,0,0.2);
+        }
+        
+        .center-marker {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            z-index: 2000;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+        
+        .error.active {
+            display: block;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #1565c0;
+        }
+        
+        .drop-zone {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: #f8f9ff;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .drop-zone:hover {
+            background: #e8e9ff;
+            border-color: #5568d3;
+        }
+        
+        .drop-zone.dragover {
+            background: #d8d9ff;
+            border-color: #4557c2;
+        }
+        
+        .drop-zone-text {
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .feature-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .feature-item {
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .feature-item.active {
+            background: #e8e8e8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transform: translateX(5px);
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        
+        .feature-details {
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🗺️ View Serviceability GeoJSON</h1>
+        <p>Load any GeoJSON file to view it on an interactive map</p>
+    </div>
+    
+    <div class="file-selector">
+        <div class="file-input-wrapper">
+            <label class="file-input-label">📁 Select GeoJSON File:</label>
+            <input type="file" id="fileInput" class="file-input" accept=".geojson,.json">
+            <button id="loadButton" class="load-button" disabled>Load Map</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="instructions">
+                <strong>🎯 How to Use:</strong><br>
+                1. Click "Choose File" and select a GeoJSON file<br>
+                2. Or drag & drop a file onto the drop zone<br>
+                3. Click "Load Map" to view<br>
+                4. Click on polygons for details
+            </div>
+            
+            <div id="dropZone" class="drop-zone">
+                <div class="drop-zone-text">
+                    📤 Drag & Drop GeoJSON File Here<br>
+                    <small style="opacity: 0.7;">or use the file selector above</small>
+                </div>
+            </div>
+            
+            <div id="errorMsg" class="error"></div>
+            
+            <div id="fileInfo" style="display: none;">
+                <div class="info-card">
+                    <h3>📄 File Information</h3>
+                    <div class="info-row">
+                        <span class="info-label">File Name:</span>
+                        <span class="info-value" id="fileName">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">File Size:</span>
+                        <span class="info-value" id="fileSize">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📍 Location Details</h3>
+                    <div class="info-row">
+                        <span class="info-label">Restaurant:</span>
+                        <span class="info-value" id="restaurantName">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Distance:</span>
+                        <span class="info-value" id="distance">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Mode:</span>
+                        <span class="info-value" id="mode">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Center:</span>
+                        <span class="info-value" id="center">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Type:</span>
+                        <span class="info-value" id="polygonType">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📊 Statistics</h3>
+                    <div class="info-row">
+                        <span class="info-label">Total Features:</span>
+                        <span class="info-value" id="totalFeatures">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Polygons:</span>
+                        <span class="info-value" id="polygonCount">-</span>
+                    </div>
+                </div>
+                
+                <div class="info-card" id="featureListCard" style="display: none;">
+                    <h3>🔍 Features</h3>
+                    <div class="feature-list" id="featureList"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="loading" id="loading">Loading map data...</div>
+            <div class="legend" id="legend" style="display: none;">
+                <h4>Legend</h4>
+                <div id="legendContent"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Color mapping for different distances and modes
+        const distanceColors = {
+            2: '#e74c3c',   // Red
+            3: '#e67e22',   // Orange
+            4: '#f39c12',   // Yellow-Orange
+            5: '#f1c40f',   // Yellow
+            6: '#2ecc71',   // Green
+            7: '#27ae60',   // Dark Green
+            8: '#3498db',   // Blue
+            10: '#9b59b6',  // Purple
+            15: '#1abc9c'   // Turquoise
+        };
+        
+        const modeColors = {
+            'bike': { tint: 0, label: '🚴 Bike' },
+            'bicycle': { tint: 0, label: '🚴 Bike' },
+            'walk': { tint: 40, label: '🚶 Walking' },
+            'walking': { tint: 40, label: '🚶 Walking' },
+            'pedestrian': { tint: 40, label: '🚶 Walking' },
+            'car': { tint: -30, label: '🚗 Car' },
+            'auto': { tint: -30, label: '🚗 Car' },
+            'motorcycle': { tint: 20, label: '🏍️ Motorcycle' }
+        };
+        
+        // Function to adjust color brightness
+        function adjustColor(hex, tint) {
+            // Convert hex to RGB
+            const r = parseInt(hex.substr(1, 2), 16);
+            const g = parseInt(hex.substr(3, 2), 16);
+            const b = parseInt(hex.substr(5, 2), 16);
+            
+            // Adjust brightness
+            const newR = Math.max(0, Math.min(255, r + tint));
+            const newG = Math.max(0, Math.min(255, g + tint));
+            const newB = Math.max(0, Math.min(255, b + tint));
+            
+            // Convert back to hex
+            return '#' + 
+                newR.toString(16).padStart(2, '0') + 
+                newG.toString(16).padStart(2, '0') + 
+                newB.toString(16).padStart(2, '0');
+        }
+        
+        // Get color for distance-mode combination
+        function getColor(distance, mode) {
+            const baseColor = distanceColors[Math.round(distance)] || '#667eea';
+            const modeTint = (modeColors[mode?.toLowerCase()] || { tint: 0 }).tint;
+            return adjustColor(baseColor, modeTint);
+        }
+        
+        // Mode icons
+        const modeIcons = {
+            'bike': '🚴',
+            'bicycle': '🚴',
+            'walk': '🚶',
+            'walking': '🚶',
+            'pedestrian': '🚶',
+            'car': '🚗',
+            'auto': '🚗',
+            'motorcycle': '🏍️'
+        };
+        
+        // Initialize map
+        const map = L.map('map').setView([13.0827, 80.2707], 12);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(map);
+        
+        let currentLayer = null;
+        let currentMarker = null;
+        let currentData = null;
+        
+        // File input handling
+        const fileInput = document.getElementById('fileInput');
+        const loadButton = document.getElementById('loadButton');
+        const dropZone = document.getElementById('dropZone');
+        const errorMsg = document.getElementById('errorMsg');
+        const loading = document.getElementById('loading');
+        
+        fileInput.addEventListener('change', function() {
+            loadButton.disabled = !this.files.length;
+            if (this.files.length) {
+                loadButton.textContent = 'Load Map';
+            }
+        });
+        
+        loadButton.addEventListener('click', function() {
+            const file = fileInput.files[0];
+            if (file) {
+                loadGeoJSON(file);
+            }
+        });
+        
+        // Drag and drop handling
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && (file.name.endsWith('.geojson') || file.name.endsWith('.json'))) {
+                fileInput.files = e.dataTransfer.files;
+                loadGeoJSON(file);
+            } else {
+                showError('Please drop a valid GeoJSON file (.geojson or .json)');
+            }
+        });
+        
+        function showError(message) {
+            errorMsg.textContent = '❌ ' + message;
+            errorMsg.classList.add('active');
+            setTimeout(() => {
+                errorMsg.classList.remove('active');
+            }, 5000);
+        }
+        
+        function loadGeoJSON(file) {
+            loading.classList.add('active');
+            errorMsg.classList.remove('active');
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    currentData = data;
+                    renderMap(data, file);
+                    loading.classList.remove('active');
+                } catch (error) {
+                    loading.classList.remove('active');
+                    showError('Failed to parse GeoJSON: ' + error.message);
+                }
+            };
+            
+            reader.onerror = function() {
+                loading.classList.remove('active');
+                showError('Failed to read file');
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        function renderMap(data, file) {
+            // Clear existing layers
+            if (currentLayer) {
+                map.removeLayer(currentLayer);
+            }
+            if (currentMarker) {
+                map.removeLayer(currentMarker);
+            }
+            
+            // Extract metadata
+            const metadata = extractMetadata(data);
+            
+            // Update file info
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = formatFileSize(file.size);
+            document.getElementById('restaurantName').textContent = metadata.restaurant_name;
+            
+            // Display distance info based on zone types
+            let distanceText = '';
+            if (metadata.has_distance_zones && metadata.has_time_zones) {
+                distanceText = `${metadata.distance_count} distance + ${metadata.time_count} time zones`;
+            } else if (metadata.has_time_zones) {
+                distanceText = `Time-based zones only`;
+            } else if (metadata.has_distance_zones) {
+                distanceText = metadata.distance_km ? metadata.distance_km + ' km' : 'Distance zones';
+            } else {
+                distanceText = '-';
+            }
+            
+            document.getElementById('distance').textContent = distanceText;
+            document.getElementById('mode').textContent = (modeIcons[metadata.mode] || '') + ' ' + metadata.mode;
+            document.getElementById('center').textContent = metadata.center_lat && metadata.center_lon 
+                ? `${metadata.center_lat.toFixed(4)}°N, ${metadata.center_lon.toFixed(4)}°E` 
+                : '-';
+            document.getElementById('polygonType').textContent = metadata.polygon_type;
+            document.getElementById('totalFeatures').textContent = metadata.total_features;
+            document.getElementById('polygonCount').textContent = metadata.total_features;
+            
+            document.getElementById('fileInfo').style.display = 'block';
+            
+            // Get color for this distance-mode combination
+            const color = getColor(metadata.distance_km, metadata.mode);
+            
+            // Add GeoJSON to map
+            currentLayer = L.geoJSON(data, {
+                style: (feature) => {
+                    const props = feature.properties || {};
+                    const featureDistance = props.distance_km || props.contour || metadata.distance_km;
+                    const featureMode = props.mode || metadata.mode;
+                    const featureColor = getColor(featureDistance, featureMode);
+                    
+                    return {
+                        fillColor: featureColor,
+                        weight: 2,
+                        opacity: 0.8,
+                        color: featureColor,
+                        fillOpacity: 0.3
+                    };
+                },
+                onEachFeature: (feature, layer) => {
+                    const props = feature.properties || {};
+                    const isTimeZone = props.zone_type === 'time' || props.metric === 'time';
+                    const isDistanceZone = props.zone_type === 'distance' || props.metric === 'distance';
+                    
+                    const featureDistance = props.distance_km || (isDistanceZone ? props.contour : null);
+                    const featureTime = props.time_minutes || (isTimeZone ? props.contour : null);
+                    const featureMode = props.mode || metadata.mode;
+                    
+                    // Use distance for color if available, otherwise use a default
+                    const featureColor = getColor(featureDistance || 5, featureMode);
+                    const modeLabel = modeIcons[featureMode.toLowerCase()] || '';
+                    
+                    // Build label for display
+                    let zoneLabel = '';
+                    if (isTimeZone && featureTime) {
+                        zoneLabel = `${featureTime}min`;
+                    } else if (isDistanceZone && featureDistance) {
+                        zoneLabel = `${featureDistance}km`;
+                    } else {
+                        zoneLabel = props.label || 'Zone';
+                    }
+                    
+                    const popupContent = `
+                        <div style="font-size: 13px;">
+                            <strong style="font-size: 15px; color: ${featureColor};">
+                                ${props.location_name || props.provider_name || props.name || metadata.restaurant_name}
+                            </strong><br/>
+                            ${isTimeZone ? `<strong>Time Zone:</strong> ${featureTime} minutes<br/>` : ''}
+                            ${isDistanceZone ? `<strong>Distance:</strong> ${featureDistance} km<br/>` : ''}
+                            <strong>Mode:</strong> ${modeLabel} ${featureMode}<br/>
+                            <strong>Type:</strong> ${isTimeZone ? 'Time-based (Isochrone)' : 'Distance-based (Isodistance)'}<br/>
+                            ${props.method ? `<strong>Method:</strong> ${props.method}<br/>` : ''}
+                            ${props.note ? `<em style="color: #666;">${props.note}</em>` : ''}
+                            <div style="margin-top: 8px; padding: 5px; background: ${featureColor}; color: white; text-align: center; border-radius: 4px; font-size: 11px; font-weight: 600;">
+                                ${zoneLabel} ${modeLabel} ${featureMode}
+                            </div>
+                        </div>
+                    `;
+                    layer.bindPopup(popupContent);
+                    
+                    layer.on('mouseover', function() {
+                        this.setStyle({
+                            weight: 3,
+                            fillOpacity: 0.5
+                        });
+                    });
+                    
+                    layer.on('mouseout', function() {
+                        this.setStyle({
+                            weight: 2,
+                            fillOpacity: 0.3
+                        });
+                    });
+                }
+            }).addTo(map);
+            
+            // Add center marker if available
+            if (metadata.center_lat && metadata.center_lon) {
+                const centerIcon = L.divIcon({
+                    className: 'center-marker',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+                
+                currentMarker = L.marker([metadata.center_lat, metadata.center_lon], { icon: centerIcon })
+                    .bindPopup(`<strong>${metadata.restaurant_name}</strong><br/>Center Point`)
+                    .addTo(map);
+            }
+            
+            // Fit map to data
+            map.fitBounds(currentLayer.getBounds(), { padding: [50, 50] });
+            
+            // Update legend - show all unique zones (distance and time)
+            const legend = document.getElementById('legend');
+            const legendContent = document.getElementById('legendContent');
+            
+            // Collect all unique zones
+            const distanceZones = [];
+            const timeZones = [];
+            
+            data.features.forEach(feature => {
+                const props = feature.properties || {};
+                const isTimeZone = props.zone_type === 'time' || props.metric === 'time';
+                const isDistanceZone = props.zone_type === 'distance' || props.metric === 'distance';
+                const mode = props.mode || metadata.mode;
+                
+                if (isTimeZone) {
+                    const timeMin = props.time_minutes || props.contour;
+                    const key = `${timeMin}-${mode}`;
+                    if (!timeZones.find(z => z.key === key)) {
+                        timeZones.push({
+                            key: key,
+                            value: timeMin,
+                            mode: mode,
+                            color: getColor(timeMin * 0.6, mode), // Approximate distance for color
+                            label: `${timeMin}min`
+                        });
+                    }
+                } else if (isDistanceZone) {
+                    const dist = props.distance_km || props.contour;
+                    const key = `${dist}-${mode}`;
+                    if (!distanceZones.find(z => z.key === key)) {
+                        distanceZones.push({
+                            key: key,
+                            value: dist,
+                            mode: mode,
+                            color: getColor(dist, mode),
+                            label: `${dist}km`
+                        });
+                    }
+                }
+            });
+            
+            let legendHTML = '';
+            
+            // Sort and display distance zones
+            distanceZones.sort((a, b) => a.value - b.value);
+            if (distanceZones.length > 0) {
+                legendHTML += '<div style="font-weight: 600; margin-bottom: 5px; font-size: 11px; color: #666;">DISTANCE ZONES</div>';
+                distanceZones.forEach(zone => {
+                    const modeLabel = modeIcons[zone.mode.toLowerCase()] || '';
+                    legendHTML += `
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: ${zone.color};"></div>
+                            <span>${zone.label} - ${modeLabel} ${zone.mode}</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            // Sort and display time zones
+            timeZones.sort((a, b) => a.value - b.value);
+            if (timeZones.length > 0) {
+                if (distanceZones.length > 0) {
+                    legendHTML += '<div style="margin: 10px 0; border-top: 1px solid #ddd;"></div>';
+                }
+                legendHTML += '<div style="font-weight: 600; margin-bottom: 5px; font-size: 11px; color: #666;">TIME ZONES (⏱️)</div>';
+                timeZones.forEach(zone => {
+                    const modeLabel = modeIcons[zone.mode.toLowerCase()] || '';
+                    legendHTML += `
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: ${zone.color};"></div>
+                            <span>${zone.label} - ${modeLabel} ${zone.mode}</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            legendHTML += `
+                <div style="margin: 10px 0; border-top: 1px solid #ddd;"></div>
+                <div class="legend-item">
+                    <div style="width: 20px; height: 20px; background: white; border: 3px solid #667eea; border-radius: 50%;"></div>
+                    <span>Center Point</span>
+                </div>
+            `;
+            
+            legendContent.innerHTML = legendHTML;
+            legend.style.display = 'block';
+            
+            // Show features list if multiple features
+            if (metadata.total_features > 1) {
+                populateFeatureList(data, color);
+            }
+        }
+        
+        function extractMetadata(data) {
+            const metadata = {
+                total_features: 0,
+                restaurant_name: 'Unknown',
+                distance_km: 0,
+                mode: 'Unknown',
+                center_lat: 0,
+                center_lon: 0,
+                polygon_type: 'Unknown',
+                has_distance_zones: false,
+                has_time_zones: false,
+                distance_count: 0,
+                time_count: 0
+            };
+            
+            // Check for metadata object first (new format)
+            if (data.metadata) {
+                metadata.restaurant_name = data.metadata.provider_name || data.metadata.restaurant_name || 'Unknown';
+                metadata.center_lat = data.metadata.center_lat || 0;
+                metadata.center_lon = data.metadata.center_lon || 0;
+                metadata.mode = data.metadata.mode || 'Unknown';
+                metadata.total_features = data.metadata.total_zones || 0;
+                
+                if (data.metadata.distance_zones && data.metadata.distance_zones.length > 0) {
+                    metadata.has_distance_zones = true;
+                    metadata.distance_count = data.metadata.distance_zones.length;
+                }
+                if (data.metadata.time_zones && data.metadata.time_zones.length > 0) {
+                    metadata.has_time_zones = true;
+                    metadata.time_count = data.metadata.time_zones.length;
+                }
+                
+                metadata.polygon_type = metadata.has_distance_zones && metadata.has_time_zones 
+                    ? 'Mixed (Distance + Time)' 
+                    : metadata.has_time_zones 
+                    ? 'Time-based' 
+                    : 'Distance-based';
+            }
+            
+            if (data.features && data.features.length > 0) {
+                metadata.total_features = data.features.length;
+                
+                const firstFeature = data.features[0];
+                const props = firstFeature.properties || {};
+                
+                // Fallback to feature properties if no metadata
+                if (!data.metadata) {
+                    metadata.restaurant_name = props.location_name || props.provider_name || props.name || 'Unknown';
+                    metadata.distance_km = props.distance_km || props.contour || 0;
+                    metadata.mode = props.mode || 'Unknown';
+                    metadata.center_lat = props.center_lat || 0;
+                    metadata.center_lon = props.center_lon || 0;
+                    metadata.polygon_type = props.polygon_type || props.metric || 'Unknown';
+                }
+                
+                // Count distance and time zones from features
+                data.features.forEach(feature => {
+                    const p = feature.properties || {};
+                    if (p.zone_type === 'distance' || p.metric === 'distance') {
+                        metadata.has_distance_zones = true;
+                        metadata.distance_count++;
+                    } else if (p.zone_type === 'time' || p.metric === 'time') {
+                        metadata.has_time_zones = true;
+                        metadata.time_count++;
+                    }
+                });
+            }
+            
+            return metadata;
+        }
+        
+        function populateFeatureList(data, baseColor) {
+            const featureList = document.getElementById('featureList');
+            const featureListCard = document.getElementById('featureListCard');
+            
+            featureList.innerHTML = '';
+            
+            data.features.forEach((feature, index) => {
+                const props = feature.properties || {};
+                const isTimeZone = props.zone_type === 'time' || props.metric === 'time';
+                const isDistanceZone = props.zone_type === 'distance' || props.metric === 'distance';
+                
+                const dist = props.distance_km || (isDistanceZone ? props.contour : null);
+                const timeMin = props.time_minutes || (isTimeZone ? props.contour : null);
+                const mode = props.mode || 'Unknown';
+                const featureColor = getColor(dist || timeMin * 0.6 || 5, mode);
+                const modeLabel = modeIcons[mode.toLowerCase()] || '';
+                
+                let zoneLabelText = '';
+                if (isTimeZone && timeMin) {
+                    zoneLabelText = `⏱️ ${timeMin} min`;
+                } else if (isDistanceZone && dist) {
+                    zoneLabelText = `📏 ${dist} km`;
+                } else {
+                    zoneLabelText = props.label || 'Zone';
+                }
+                
+                const item = document.createElement('div');
+                item.className = 'feature-item';
+                item.style.borderLeftColor = featureColor;
+                
+                item.innerHTML = `
+                    <div class="feature-title">
+                        Feature ${index + 1}: ${props.location_name || props.provider_name || props.name || 'Polygon'}
+                    </div>
+                    <div class="feature-details">
+                        ${zoneLabelText}
+                        ${mode ? '• ' + modeLabel + ' ' + mode : ''}
+                        <span style="display: inline-block; width: 12px; height: 12px; background: ${featureColor}; border-radius: 2px; margin-left: 5px; vertical-align: middle;"></span>
+                    </div>
+                `;
+                
+                item.addEventListener('click', () => {
+                    // Remove active class from all feature items
+                    document.querySelectorAll('.feature-item').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Reset all layer styles
+                    currentLayer.eachLayer(l => {
+                        if (l.setStyle) {
+                            const props = l.feature.properties || {};
+                            const dist = props.distance_km || props.contour;
+                            const mode = props.mode || 'Unknown';
+                            const color = getColor(dist, mode);
+                            l.setStyle({
+                                weight: 2,
+                                opacity: 0.8,
+                                fillOpacity: 0.3
+                            });
+                        }
+                    });
+                    
+                    // Highlight selected layer
+                    const layer = currentLayer.getLayers()[index];
+                    if (layer) {
+                        if (layer.setStyle) {
+                            layer.setStyle({
+                                weight: 4,
+                                opacity: 1,
+                                fillOpacity: 0.5
+                            });
+                        }
+                        map.fitBounds(layer.getBounds(), { padding: [50, 50] });
+                        layer.openPopup();
+                    }
+                });
+                
+                featureList.appendChild(item);
+            });
+            
+            featureListCard.style.display = 'block';
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+    </script>
+</body>
+</html>
