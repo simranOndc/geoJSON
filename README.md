@@ -1,6 +1,5 @@
-# 📍 Isochrone GeoJSONs for ONDC Restaurant Locations
+# 📍 Isochrone GeoJSONs for Restaurant on the network
 
-This repository contains **isochrone (time-based)** and **isodistance (distance-based)** GeoJSON files generated for restaurant locations across:
 
 * **Delhi**
 * **Bangalore**
