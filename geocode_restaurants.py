@@ -126,8 +126,8 @@ def geocode_restaurant_enhanced(
         Dictionary with comprehensive restaurant data
     """
     result = {
-        'Latitude': None,
-        'Longitude': None,
+        'lat': None,
+        'long': None,
         'Restaurant_Status': None,
         'Store_Timings': None,
         'Address': None,
@@ -204,8 +204,8 @@ def geocode_restaurant_enhanced(
                                 
                                 if lat and lng:
                                     # Round to 6 decimal places
-                                    result['Latitude'] = round(lat, 6)
-                                    result['Longitude'] = round(lng, 6)
+                                    result['lat'] = round(lat, 6)
+                                    result['long'] = round(lng, 6)
                                     
                                     # Get address
                                     result['Address'] = place_info.get('formatted_address')
@@ -289,8 +289,8 @@ def process_restaurants(
     
     # Add new columns ONLY if they don't exist (don't overwrite existing data!)
     new_columns = [
-        'Latitude',
-        'Longitude',
+        'lat',
+        'long',
         'Restaurant_Status',
         'Store_Timings',
         'Address',
@@ -315,7 +315,7 @@ def process_restaurants(
             raise ValueError(f"Required column '{col}' not found in input file")
     
     # Check how many already have data
-    already_geocoded = df[(df['Latitude'].notna()) & (df['Longitude'].notna())].shape[0]
+    already_geocoded = df[(df['lat'].notna()) & (df['long'].notna())].shape[0]
     needs_geocoding = total_rows - already_geocoded
     
     print(f"{'='*80}")
@@ -345,8 +345,8 @@ def process_restaurants(
         row = df.iloc[idx]
         
         # Skip if already has coordinates - check both by index and column name
-        current_lat = df.at[idx, 'Latitude']
-        current_lon = df.at[idx, 'Longitude']
+        current_lat = df.at[idx, 'lat']
+        current_lon = df.at[idx, 'long']
         
         if pd.notna(current_lat) and pd.notna(current_lon) and current_lat is not None and current_lon is not None:
             skipped += 1
@@ -370,18 +370,18 @@ def process_restaurants(
             result = geocode_restaurant_enhanced(gmaps, provider_name, city, state, pincode)
             
             # Update dataframe
-            df.at[idx, 'Latitude'] = result['Latitude']
-            df.at[idx, 'Longitude'] = result['Longitude']
+            df.at[idx, 'lat'] = result['lat']
+            df.at[idx, 'long'] = result['long']
             df.at[idx, 'Restaurant_Status'] = result['Restaurant_Status']
             df.at[idx, 'Store_Timings'] = result['Store_Timings']
             df.at[idx, 'Address'] = result['Address']
             df.at[idx, 'Google_Maps_Link'] = result['Google_Maps_Link']
             df.at[idx, 'Place_ID'] = result['Place_ID']
             
-            if result['Latitude'] is not None:
+            if result['lat'] is not None:
                 successful += 1
                 if processed % 10 == 0 or processed < 5:
-                    print(f"  ✓ Success: {result['Latitude']}, {result['Longitude']} | Status: {result['Restaurant_Status']}")
+                    print(f"  ✓ Success: {result['lat']}, {result['long']} | Status: {result['Restaurant_Status']}")
             else:
                 failed += 1
                 if processed % 10 == 0 or processed < 5:
@@ -426,7 +426,7 @@ def process_restaurants(
     elapsed_time = time.time() - start_time
     
     # Get final count of geocoded restaurants
-    final_geocoded = df[(df['Latitude'].notna()) & (df['Longitude'].notna())].shape[0]
+    final_geocoded = df[(df['lat'].notna()) & (df['long'].notna())].shape[0]
     
     print(f"\n{'='*80}")
     print(f"FINAL RESULTS")
@@ -451,11 +451,11 @@ def process_restaurants(
     print(f"\n{'='*80}")
     print(f"SAMPLE OF GEOCODED DATA (First 5 successful entries)")
     print(f"{'='*80}")
-    sample_cols = [provider_col, city_col, 'Latitude', 'Longitude', 'Restaurant_Status', 'Address']
-    sample_df = df[df['Latitude'].notna()][sample_cols].head(5)
+    sample_cols = [provider_col, city_col, 'lat', 'long', 'Restaurant_Status', 'Address']
+    sample_df = df[df['lat'].notna()][sample_cols].head(5)
     for idx, row in sample_df.iterrows():
         print(f"\n{row[provider_col]}")
-        print(f"  Location: {row['Latitude']}, {row['Longitude']}")
+        print(f"  Location: {row['lat']}, {row['long']}")
         print(f"  Status: {row['Restaurant_Status']}")
         print(f"  Address: {row['Address'][:80]}..." if row['Address'] and len(row['Address']) > 80 else f"  Address: {row['Address']}")
     
@@ -479,8 +479,8 @@ def main():
         print("\n" + "="*80)
         print("What This Script Fetches:")
         print("="*80)
-        print("  • Latitude (6 decimal accuracy)")
-        print("  • Longitude (6 decimal accuracy)")
+        print("  • lat (6 decimal accuracy)")
+        print("  • long (6 decimal accuracy)")
         print("  • Restaurant Status (Open/Closed/Permanently Closed)")
         print("  • Store Timings (Weekly schedule)")
         print("  • Full Address")
