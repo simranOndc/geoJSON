@@ -152,17 +152,6 @@ def geocode_restaurant_enhanced(
     if pincode_str and state_clean:
         search_queries.append(f"{provider_name_clean}, {city_clean}, {state_clean}, {pincode_str}, India")
     
-    # Query 2: Restaurant name + city + state
-    if state_clean:
-        search_queries.append(f"{provider_name_clean}, {city_clean}, {state_clean}, India")
-    
-    # Query 3: Restaurant name + city + pincode
-    if pincode_str:
-        search_queries.append(f"{provider_name_clean}, {city_clean}, {pincode_str}, India")
-    
-    # Query 4: Restaurant name + city
-    search_queries.append(f"{provider_name_clean}, {city_clean}, India")
-    
     # Try each query
     for attempt in range(retry_count):
         for query in search_queries:
@@ -309,7 +298,7 @@ def process_restaurants(
     pincode_col = 'Seller Pincode'
     
     # Check required columns
-    required_cols = [provider_col, city_col]
+    required_cols = [provider_col, city_col, pincode_col]
     for col in required_cols:
         if col not in df.columns:
             raise ValueError(f"Required column '{col}' not found in input file")
