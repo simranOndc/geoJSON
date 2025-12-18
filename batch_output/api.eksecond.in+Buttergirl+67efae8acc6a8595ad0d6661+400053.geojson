@@ -1,0 +1,207 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "provider_name": "Buttergirl",
+    "center_lat": 19.141620972193,
+    "center_lon": 19.141620972193,
+    "mode": "motorcycle",
+    "total_zones": 4,
+    "distance_zones": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "generated_at": "2025-12-17T06:11:42.204177Z"
+  },
+  "features": [
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 3.0,
+        "metric": "distance",
+        "provider_name": "Buttergirl",
+        "zone_type": "distance",
+        "distance_km": 3,
+        "mode": "motorcycle",
+        "center_lat": 19.141620972193,
+        "center_lon": 19.141620972193,
+        "label": "3km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              19.141621,
+              19.142371
+            ],
+            [
+              19.140871,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.140871
+            ],
+            [
+              19.142371,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.142371
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    },
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 4.0,
+        "metric": "distance",
+        "provider_name": "Buttergirl",
+        "zone_type": "distance",
+        "distance_km": 4,
+        "mode": "motorcycle",
+        "center_lat": 19.141620972193,
+        "center_lon": 19.141620972193,
+        "label": "4km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              19.141621,
+              19.142421
+            ],
+            [
+              19.140821,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.140821
+            ],
+            [
+              19.142421,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.142421
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    },
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 5.0,
+        "metric": "distance",
+        "provider_name": "Buttergirl",
+        "zone_type": "distance",
+        "distance_km": 5,
+        "mode": "motorcycle",
+        "center_lat": 19.141620972193,
+        "center_lon": 19.141620972193,
+        "label": "5km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              19.141621,
+              19.142454
+            ],
+            [
+              19.140787,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.140787
+            ],
+            [
+              19.142454,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.142454
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    },
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 6.0,
+        "metric": "distance",
+        "provider_name": "Buttergirl",
+        "zone_type": "distance",
+        "distance_km": 6,
+        "mode": "motorcycle",
+        "center_lat": 19.141620972193,
+        "center_lon": 19.141620972193,
+        "label": "6km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              19.141621,
+              19.142478
+            ],
+            [
+              19.140763,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.140763
+            ],
+            [
+              19.142478,
+              19.141621
+            ],
+            [
+              19.141621,
+              19.142478
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    }
+  ]
+}

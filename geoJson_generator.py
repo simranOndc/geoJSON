@@ -130,7 +130,7 @@ class IsodistanceGenerator:
 class SmartBatchProcessor:
     """Smart batch processor - skips rows already processed in Excel AND files that exist."""
     
-    def __init__(self, output_dir: str = "batch_output", max_workers: int = 10):
+    def __init__(self, output_dir: str = "batch_output", max_workers: int = 5):
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(exist_ok=True)
         self.max_workers = max_workers
@@ -483,7 +483,7 @@ def smart_batch_process(
     output_dir: str = "batch_output",
     distances_km: List[float] = [3, 4, 5, 6],
     mode: str = 'motorcycle',
-    max_workers: int = 10,
+    max_workers: int = 5,
     skip_existing: bool = True
 ) -> Dict:
     """
