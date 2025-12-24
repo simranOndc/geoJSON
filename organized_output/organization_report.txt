@@ -1,0 +1,783 @@
+======================================================================
+BATCH OUTPUT ORGANIZATION REPORT
+======================================================================
+
+Generated: 2025-12-23 15:03:44
+Source: batch_output
+Target: organized_output
+
+Total BPP IDs: 25
+Total Cities: 161
+Total Files: 70832
+
+======================================================================
+BREAKDOWN BY BPP ID
+======================================================================
+
+
+agg.dominos.co.in (882 files)
+-----------------
+  AP_South: 1 files
+  Agartala: 1 files
+  Agra: 5 files
+  Ahmedabad: 13 files
+  Ajmer: 3 files
+  Allahabad: 1 files
+  Ambala: 4 files
+  Amritsar: 7 files
+  Assam_Central: 2 files
+  Assam_West: 2 files
+  Aurangabad: 6 files
+  Bangalore: 174 files
+  Bareilly: 1 files
+  Bhopal: 8 files
+  Bihar_Central: 2 files
+  Bihar_East: 1 files
+  Bihar_North: 2 files
+  Bihar_South: 1 files
+  Bihar_West: 2 files
+  Bilaspur: 3 files
+  Bulandshahr: 2 files
+  Chandigarh: 7 files
+  Chennai: 56 files
+  Chhattisgarh_North: 1 files
+  Coimbatore: 2 files
+  Dehradun: 8 files
+  Delhi: 154 files
+  Delhi_NCR: 1 files
+  Delhi_NCR_Region: 19 files
+  Dhanbad: 1 files
+  Dharamshala: 1 files
+  Durg: 2 files
+  Erode: 1 files
+  Faridabad: 23 files
+  Ghaziabad: 33 files
+  Goa: 9 files
+  Gorakhpur: 1 files
+  Gujarat_Central: 1 files
+  Gujarat_South: 1 files
+  Gujarat_West: 1 files
+  Guntur: 1 files
+  Guwahati: 6 files
+  Gwalior: 1 files
+  Haridwar: 2 files
+  Hubli: 1 files
+  Hyderabad: 16 files
+  Indore: 4 files
+  Jabalpur: 1 files
+  Jaipur: 5 files
+  Jalandhar: 6 files
+  Jammu: 2 files
+  Jharkhand_North: 2 files
+  Jodhpur: 2 files
+  Kanpur: 6 files
+  Karnal: 4 files
+  Karnataka_Central: 2 files
+  Karnataka_East: 1 files
+  Karnataka_North: 2 files
+  Karnataka_West: 1 files
+  Kerala_North: 1 files
+  Kochi: 5 files
+  Kolhapur: 3 files
+  Kolkata: 28 files
+  Kota: 1 files
+  Kottayam: 1 files
+  Lucknow: 8 files
+  Ludhiana: 8 files
+  MP_East: 5 files
+  MP_South: 1 files
+  MP_West: 2 files
+  Maharashtra_Central: 4 files
+  Maharashtra_East: 2 files
+  Maharashtra_Goa: 2 files
+  Maharashtra_West: 2 files
+  Mathura: 1 files
+  Meerut: 5 files
+  Mumbai: 50 files
+  Mysore: 3 files
+  Nagaland: 1 files
+  Nagpur: 6 files
+  Nashik: 4 files
+  Patiala: 3 files
+  Patna: 10 files
+  Pune: 28 files
+  Raipur: 2 files
+  Rajasthan_Gujarat: 1 files
+  Rajasthan_West: 1 files
+  Rajkot: 2 files
+  Ranchi: 5 files
+  Rohtak: 2 files
+  Shillong: 1 files
+  Siliguri: 6 files
+  Sonipat: 2 files
+  Srinagar: 2 files
+  Surat: 7 files
+  TN_North: 1 files
+  TN_South: 1 files
+  TN_West: 1 files
+  Telangana_East: 1 files
+  Thane: 7 files
+  Thiruvananthapuram: 1 files
+  Thrissur: 1 files
+  Tirunelveli: 1 files
+  UP_Central: 2 files
+  UP_Region: 2 files
+  UP_West: 2 files
+  Vadodara: 4 files
+  Vapi: 2 files
+  Varanasi: 2 files
+  Vellore: 2 files
+  Visakhapatnam: 3 files
+  WB_North: 5 files
+  WB_South: 1 files
+
+api.eksecond.in (3256 files)
+---------------
+  AP_East: 3 files
+  AP_South: 2 files
+  Agartala: 1 files
+  Agra: 27 files
+  Ahmedabad: 52 files
+  Aligarh: 1 files
+  Allahabad: 1 files
+  Alwar: 1 files
+  Ambala: 1 files
+  Amritsar: 7 files
+  Assam_East: 5 files
+  Assam_West: 1 files
+  Aurangabad: 3 files
+  Bangalore: 916 files
+  Bareilly: 7 files
+  Bhopal: 20 files
+  Bhubaneswar: 3 files
+  Chandigarh: 42 files
+  Chennai: 201 files
+  Coimbatore: 9 files
+  Cuttack: 2 files
+  Dehradun: 6 files
+  Delhi: 834 files
+  Delhi_NCR: 1 files
+  Delhi_NCR_Region: 16 files
+  Erode: 2 files
+  Faridabad: 123 files
+  Ghaziabad: 127 files
+  Goa: 15 files
+  Gujarat_North: 1 files
+  Guntur: 2 files
+  Guwahati: 2 files
+  Gwalior: 2 files
+  Hyderabad: 192 files
+  Indore: 11 files
+  Jabalpur: 8 files
+  Jaipur: 24 files
+  Jalandhar: 4 files
+  Jammu: 2 files
+  Jamshedpur: 1 files
+  Jharkhand_Central: 1 files
+  Jodhpur: 9 files
+  Kanpur: 4 files
+  Karnataka_East: 1 files
+  Karnataka_North: 1 files
+  Karnataka_South: 1 files
+  Kerala_Central: 1 files
+  Kochi: 2 files
+  Kolkata: 99 files
+  Kota: 5 files
+  Lucknow: 21 files
+  Ludhiana: 3 files
+  MP_Central: 1 files
+  MP_East: 2 files
+  MP_West: 1 files
+  Madurai: 7 files
+  Maharashtra_East: 1 files
+  Maharashtra_Goa: 2 files
+  Maharashtra_North: 2 files
+  Mangalore: 3 files
+  Meerut: 3 files
+  Meghalaya_East: 1 files
+  Moradabad: 1 files
+  Mumbai: 168 files
+  Mysore: 7 files
+  Nagpur: 8 files
+  Nashik: 3 files
+  Odisha_East: 1 files
+  Odisha_North: 2 files
+  Odisha_South: 1 files
+  Patiala: 1 files
+  Patna: 10 files
+  Pune: 117 files
+  Raipur: 5 files
+  Rajasthan_Gujarat: 1 files
+  Rajasthan_North: 6 files
+  Rajkot: 1 files
+  Ranchi: 1 files
+  Salem: 2 files
+  Shillong: 1 files
+  Siliguri: 2 files
+  Surat: 9 files
+  TN_Central: 1 files
+  TN_South: 1 files
+  TN_West: 2 files
+  Thane: 19 files
+  Thiruvananthapuram: 2 files
+  Thrissur: 2 files
+  Tiruchirappalli: 1 files
+  Tirunelveli: 3 files
+  UP_Region: 2 files
+  Vadodara: 5 files
+  Vapi: 1 files
+  Varanasi: 7 files
+  Vellore: 1 files
+  Vijayawada: 3 files
+  Visakhapatnam: 8 files
+  WB_South: 2 files
+
+api.localekart.com (16 files)
+------------------
+  Bangalore: 1 files
+  Delhi: 5 files
+  Ghaziabad: 9 files
+  Guwahati: 1 files
+
+api.nearshop.in (7 files)
+---------------
+  Bangalore: 5 files
+  Bhopal: 1 files
+  Dehradun: 1 files
+
+biz.enstore.com (4117 files)
+---------------
+  AP_East: 2 files
+  AP_South: 1 files
+  Agra: 2 files
+  Ahmedabad: 26 files
+  Ajmer: 1 files
+  Aligarh: 1 files
+  Allahabad: 1 files
+  Alwar: 1 files
+  Ambala: 4 files
+  Amritsar: 8 files
+  Aurangabad: 2 files
+  Bangalore: 1736 files
+  Bareilly: 1 files
+  Belgaum: 1 files
+  Bhopal: 8 files
+  Bhubaneswar: 7 files
+  Chandigarh: 24 files
+  Chennai: 429 files
+  Coimbatore: 18 files
+  Dehradun: 6 files
+  Delhi: 707 files
+  Delhi_NCR_Region: 12 files
+  Dharamshala: 1 files
+  Erode: 2 files
+  Faridabad: 139 files
+  Ghaziabad: 123 files
+  Goa: 13 files
+  Gorakhpur: 6 files
+  Gujarat_Central: 1 files
+  Guntur: 1 files
+  Guwahati: 7 files
+  Gwalior: 2 files
+  Hisar: 1 files
+  Hubli: 3 files
+  Hyderabad: 132 files
+  Indore: 9 files
+  Jaipur: 21 files
+  Jalandhar: 3 files
+  Jammu: 1 files
+  Jamshedpur: 1 files
+  Jharkhand_East: 1 files
+  Kanpur: 8 files
+  Karnataka_South: 1 files
+  Karnataka_West: 2 files
+  Kerala_Central: 1 files
+  Kochi: 10 files
+  Kolhapur: 1 files
+  Kolkata: 54 files
+  Kota: 1 files
+  Kottayam: 1 files
+  Lucknow: 19 files
+  Ludhiana: 2 files
+  MP_West: 1 files
+  Madurai: 5 files
+  Maharashtra_Central: 1 files
+  Mangalore: 5 files
+  Meerut: 2 files
+  Moradabad: 2 files
+  Mumbai: 299 files
+  Mysore: 16 files
+  Nagpur: 8 files
+  Nashik: 10 files
+  Odisha_East: 1 files
+  Odisha_North: 2 files
+  Patiala: 3 files
+  Patna: 9 files
+  Pondicherry: 2 files
+  Pune: 105 files
+  Rajasthan_North: 2 files
+  Ranchi: 6 files
+  Salem: 2 files
+  Siliguri: 1 files
+  Surat: 7 files
+  TN_South: 2 files
+  TN_West: 4 files
+  Thane: 14 files
+  Thiruvananthapuram: 2 files
+  Thrissur: 5 files
+  Tiruchirappalli: 4 files
+  Tirupati: 1 files
+  UP_Region: 1 files
+  Udaipur: 1 files
+  Vadodara: 5 files
+  Vellore: 3 files
+  Vijayawada: 10 files
+  Visakhapatnam: 11 files
+
+biz.ondc.mcdindia.com (87 files)
+---------------------
+  Agra: 2 files
+  Amritsar: 2 files
+  Chandigarh: 1 files
+  Dehradun: 1 files
+  Delhi: 46 files
+  Delhi_NCR_Region: 1 files
+  Faridabad: 10 files
+  Ghaziabad: 4 files
+  Guwahati: 2 files
+  Jaipur: 2 files
+  Jalandhar: 1 files
+  Kanpur: 1 files
+  Kolkata: 2 files
+  Kota: 1 files
+  Lucknow: 4 files
+  Ludhiana: 4 files
+  Sonipat: 1 files
+  Udaipur: 1 files
+  Varanasi: 1 files
+
+biz.ondc.rebelfoods.com (3510 files)
+-----------------------
+  AP_East: 8 files
+  Agra: 7 files
+  Ahmedabad: 56 files
+  Ajmer: 2 files
+  Allahabad: 10 files
+  Ambala: 4 files
+  Amritsar: 10 files
+  Aurangabad: 6 files
+  Bangalore: 1020 files
+  Bareilly: 4 files
+  Belgaum: 6 files
+  Bhopal: 17 files
+  Bhubaneswar: 8 files
+  Bilaspur: 4 files
+  Chandigarh: 23 files
+  Chennai: 467 files
+  Coimbatore: 27 files
+  Cuttack: 1 files
+  Dehradun: 11 files
+  Delhi: 614 files
+  Delhi_NCR_Region: 5 files
+  Durg: 7 files
+  Erode: 2 files
+  Faridabad: 56 files
+  Ghaziabad: 93 files
+  Goa: 11 files
+  Guntur: 5 files
+  Guwahati: 11 files
+  Gwalior: 7 files
+  Hubli: 3 files
+  Hyderabad: 154 files
+  Indore: 17 files
+  Jabalpur: 10 files
+  Jaipur: 17 files
+  Jalandhar: 8 files
+  Jammu: 2 files
+  Jamshedpur: 3 files
+  Jharkhand_East: 1 files
+  Jodhpur: 4 files
+  Kanpur: 4 files
+  Karnal: 5 files
+  Karnataka_Central: 5 files
+  Karnataka_North: 7 files
+  Karnataka_West: 2 files
+  Kerala_Central: 6 files
+  Kochi: 13 files
+  Kolhapur: 1 files
+  Kolkata: 78 files
+  Kota: 8 files
+  Lucknow: 31 files
+  Ludhiana: 5 files
+  Madurai: 2 files
+  Maharashtra_Central: 7 files
+  Mangalore: 3 files
+  Mathura: 1 files
+  Meerut: 6 files
+  Mumbai: 213 files
+  Mysore: 13 files
+  Nagpur: 18 files
+  Nashik: 11 files
+  Patiala: 6 files
+  Patna: 13 files
+  Pondicherry: 6 files
+  Pune: 158 files
+  Raipur: 7 files
+  Rajkot: 2 files
+  Ranchi: 10 files
+  Rohtak: 5 files
+  Salem: 5 files
+  Siliguri: 3 files
+  Sonipat: 1 files
+  Surat: 8 files
+  TN_North: 10 files
+  Thane: 9 files
+  Thiruvananthapuram: 11 files
+  Thrissur: 1 files
+  Tiruchirappalli: 17 files
+  Tirunelveli: 6 files
+  Tirupati: 7 files
+  Udaipur: 6 files
+  Vadodara: 20 files
+  Varanasi: 12 files
+  Vellore: 11 files
+  Vijayawada: 6 files
+  Visakhapatnam: 10 files
+
+dpbazaar.api.thebharavi.com (2 files)
+---------------------------
+  Kolkata: 2 files
+
+integrations.channelier.com (1 files)
+---------------------------
+  Maharashtra_North: 1 files
+
+ondc.box8.co.in (3704 files)
+---------------
+  Bangalore: 1457 files
+  Chennai: 227 files
+  Delhi: 712 files
+  Faridabad: 140 files
+  Ghaziabad: 123 files
+  Hyderabad: 217 files
+  Kolkata: 72 files
+  Mumbai: 377 files
+  Patna: 5 files
+  Pune: 324 files
+  Thane: 50 files
+
+ondc.greenreceipt.in (28 files)
+--------------------
+  Bangalore: 4 files
+  Delhi: 22 files
+  Faridabad: 1 files
+  Mumbai: 1 files
+
+ondc.kiko.live_ondc-seller (113 files)
+--------------------------
+  Agra: 1 files
+  Amritsar: 1 files
+  Bangalore: 7 files
+  Bulandshahr: 1 files
+  Dehradun: 1 files
+  Delhi: 66 files
+  Faridabad: 3 files
+  Ghaziabad: 13 files
+  Jaipur: 2 files
+  Kanpur: 1 files
+  Lucknow: 1 files
+  Ludhiana: 1 files
+  Maharashtra_Central: 1 files
+  Mumbai: 3 files
+  Mysore: 1 files
+  Odisha_East: 1 files
+  Patna: 2 files
+  Pune: 1 files
+  Rajasthan_Gujarat: 2 files
+  Thane: 1 files
+  UP_West: 1 files
+  Udaipur: 1 files
+  WB_South: 1 files
+
+ondc.unizap.ai_api_seller (19 files)
+-------------------------
+  Bangalore: 16 files
+  Delhi: 1 files
+  Gwalior: 1 files
+  Pune: 1 files
+
+ondc.valardigital.in (42 files)
+--------------------
+  Chennai: 42 files
+
+ondc.xpressbaazaar.com (3 files)
+----------------------
+  Bangalore: 2 files
+  Delhi: 1 files
+
+ondcmp.nlincs.in (217 files)
+----------------
+  Bangalore: 68 files
+  Chennai: 59 files
+  Coimbatore: 1 files
+  Delhi: 43 files
+  Erode: 1 files
+  Faridabad: 2 files
+  Kanpur: 1 files
+  Karnataka_West: 1 files
+  Lucknow: 1 files
+  Maharashtra_North: 1 files
+  Mumbai: 25 files
+  Pune: 4 files
+  TN_North: 1 files
+  Thane: 6 files
+  UP_East: 1 files
+  Vapi: 1 files
+  Varanasi: 1 files
+
+owner.waayu.app_ondcprod (2204 files)
+------------------------
+  AP_East: 1 files
+  Allahabad: 2 files
+  Bangalore: 1301 files
+  Belgaum: 48 files
+  Bhubaneswar: 4 files
+  Chennai: 13 files
+  Delhi: 24 files
+  Faridabad: 2 files
+  Hisar: 1 files
+  Hyderabad: 68 files
+  Jaipur: 28 files
+  Kanpur: 1 files
+  Kolhapur: 3 files
+  Kolkata: 4 files
+  Mumbai: 347 files
+  Mysore: 30 files
+  Nagpur: 2 files
+  Pune: 320 files
+  Thane: 2 files
+  UP_Region: 1 files
+  Vijayawada: 1 files
+  Visakhapatnam: 1 files
+
+preprod.tipplr.in (1 files)
+-----------------
+  Bangalore: 1 files
+
+prod.dhihyperlocal.com (5 files)
+----------------------
+  Bangalore: 4 files
+  Pune: 1 files
+
+prod.ecomviser.com (3 files)
+------------------
+  Bangalore: 1 files
+  Delhi: 1 files
+  Guwahati: 1 files
+
+prod.growthfalcons.com_v1_gf (1107 files)
+----------------------------
+  Bangalore: 1088 files
+  Chennai: 10 files
+  Delhi: 1 files
+  Delhi_NCR_Region: 2 files
+  Hyderabad: 3 files
+  Mumbai: 1 files
+  Pune: 2 files
+
+seller.tipplr.in (5564 files)
+----------------
+  AP_East: 6 files
+  AP_South: 9 files
+  Ahmedabad: 11 files
+  Bangalore: 2994 files
+  Belgaum: 4 files
+  Chennai: 807 files
+  Coimbatore: 8 files
+  Dehradun: 3 files
+  Delhi: 1004 files
+  Delhi_NCR_Region: 1 files
+  Erode: 2 files
+  Faridabad: 54 files
+  Ghaziabad: 15 files
+  Guntur: 5 files
+  Haridwar: 1 files
+  Hyderabad: 493 files
+  Kanpur: 11 files
+  Kolkata: 26 files
+  Kozhikode: 2 files
+  Lucknow: 9 files
+  Mangalore: 1 files
+  Meerut: 1 files
+  Moradabad: 3 files
+  Mumbai: 13 files
+  Mysore: 50 files
+  Nashik: 5 files
+  Odisha_East: 3 files
+  Pune: 10 files
+  Salem: 2 files
+  TN_North: 3 files
+  TN_West: 5 files
+  Tiruchirappalli: 1 files
+  UP_Region: 1 files
+  Varanasi: 1 files
+
+store1.samhita.org (1 files)
+------------------
+  Pune: 1 files
+
+ultrontest.magicpin.com_oms_partner_ondc (3 files)
+----------------------------------------
+  Bangalore: 3 files
+
+webapi.magicpin.in_oms_partner_ondc (45940 files)
+-----------------------------------
+  AP_East: 69 files
+  AP_North: 22 files
+  AP_South: 15 files
+  Agra: 33 files
+  Ahmedabad: 378 files
+  Aizawl: 2 files
+  Ajmer: 7 files
+  Aligarh: 51 files
+  Allahabad: 23 files
+  Alwar: 3 files
+  Ambala: 26 files
+  Amritsar: 44 files
+  Assam_Central: 1 files
+  Assam_North: 1 files
+  Assam_West: 3 files
+  Aurangabad: 70 files
+  Bangalore: 13229 files
+  Bareilly: 14 files
+  Belgaum: 15 files
+  Bhopal: 99 files
+  Bhubaneswar: 73 files
+  Bihar_Central: 4 files
+  Bihar_North: 9 files
+  Bihar_South: 6 files
+  Bihar_West: 2 files
+  Bilaspur: 16 files
+  Bulandshahr: 7 files
+  Chandigarh: 125 files
+  Chennai: 2060 files
+  Chhattisgarh_North: 1 files
+  Coimbatore: 62 files
+  Cuttack: 13 files
+  Dehradun: 80 files
+  Delhi: 15030 files
+  Delhi_NCR_Region: 123 files
+  Dhanbad: 18 files
+  Dharamshala: 2 files
+  Erode: 17 files
+  Faridabad: 1326 files
+  Ghaziabad: 1496 files
+  Goa: 73 files
+  Gorakhpur: 17 files
+  Gujarat_Central: 6 files
+  Gujarat_South: 13 files
+  Gujarat_West: 2 files
+  Guntur: 18 files
+  Gurgaon: 4 files
+  Guwahati: 65 files
+  Gwalior: 16 files
+  Haridwar: 10 files
+  Hisar: 4 files
+  Hubli: 16 files
+  Hyderabad: 2017 files
+  Indore: 212 files
+  International: 16 files
+  Jabalpur: 16 files
+  Jaipur: 443 files
+  Jalandhar: 28 files
+  Jammu: 15 files
+  Jamshedpur: 25 files
+  Jharkhand_East: 2 files
+  Jharkhand_North: 1 files
+  Jodhpur: 22 files
+  Kanpur: 63 files
+  Karnal: 25 files
+  Karnataka_Central: 6 files
+  Karnataka_East: 3 files
+  Karnataka_North: 66 files
+  Karnataka_South: 3 files
+  Karnataka_West: 20 files
+  Kerala_Central: 6 files
+  Kerala_North: 3 files
+  Kerala_South: 5 files
+  Kochi: 53 files
+  Kolhapur: 20 files
+  Kolkata: 1306 files
+  Kollam: 3 files
+  Kota: 25 files
+  Kottayam: 5 files
+  Kozhikode: 8 files
+  Lucknow: 358 files
+  Ludhiana: 58 files
+  MP_East: 6 files
+  MP_North: 3 files
+  MP_South: 1 files
+  MP_West: 3 files
+  Madurai: 22 files
+  Maharashtra_Central: 14 files
+  Maharashtra_East: 10 files
+  Maharashtra_Goa: 1 files
+  Maharashtra_North: 3 files
+  Maharashtra_West: 3 files
+  Mangalore: 31 files
+  Manipur: 2 files
+  Mathura: 6 files
+  Meerut: 28 files
+  Moradabad: 17 files
+  Mumbai: 2590 files
+  Mysore: 73 files
+  Nadia: 28 files
+  Nagaland: 3 files
+  Nagpur: 69 files
+  Nashik: 47 files
+  Noida: 62 files
+  Odisha_East: 1 files
+  Odisha_North: 11 files
+  Odisha_West: 2 files
+  Patiala: 16 files
+  Patna: 82 files
+  Pondicherry: 26 files
+  Pune: 2114 files
+  Raipur: 34 files
+  Rajasthan_Gujarat: 6 files
+  Rajasthan_North: 8 files
+  Rajkot: 17 files
+  Ranchi: 34 files
+  Rohtak: 19 files
+  Salem: 17 files
+  Shillong: 6 files
+  Siliguri: 29 files
+  Sonipat: 13 files
+  Srinagar: 5 files
+  Surat: 43 files
+  TN_Central: 6 files
+  TN_Nicobar: 6 files
+  TN_South: 14 files
+  TN_West: 13 files
+  Telangana_East: 10 files
+  Telangana_North: 3 files
+  Telangana_West: 6 files
+  Thane: 227 files
+  Thiruvananthapuram: 33 files
+  Thrissur: 20 files
+  Tiruchirappalli: 16 files
+  Tirunelveli: 11 files
+  Tirupati: 18 files
+  UP_Central: 21 files
+  UP_East: 6 files
+  UP_Region: 9 files
+  UP_West: 6 files
+  Udaipur: 36 files
+  Vadodara: 56 files
+  Vapi: 3 files
+  Varanasi: 43 files
+  Vellore: 25 files
+  Vijayawada: 49 files
+  Visakhapatnam: 125 files
+  WB_North: 7 files
+  WB_South: 14 files

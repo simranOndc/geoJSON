@@ -1,251 +1,197 @@
+# Smart Isodistance Zone Generator - API Documentation
 
-# 📍 Isochrone GeoJSONs for Restaurant on the network
+## API Used
 
-=======
+### Valhalla Isochrone API
+**Endpoint:** `https://valhalla1.openstreetmap.de/isochrone`
 
-* **Delhi**
-* **Bangalore**
-* **Chennai**
+**Method:** POST
 
----
-
-## 📏 Parameters Used
-
-### **Distance-Based Isochrones**
-
-* **3 km**
-* **4 km**
-* **5 km**
-* **6 km**
-
-### **Time-Based Isochrones**
-
-* **10 minutes**
-* **20 minutes**
-
-### **Travel Mode**
-
-* **Motorcycle**
+**Description:** Generates realistic delivery/travel zones based on actual road networks and routing data.
 
 ---
 
-## 📂 Repository Structure
+## Input Parameters
 
-```
-/batch_output
-   ├── bpp_id+provider_name+provider_id+pincode1
-   ├── bpp_id+provider_name+provider_id+pincode2
-   └── ... GeoJSON output files
+### 1. Excel File Requirements
 
-/batch_output.py
-   └── Script used to generate GeoJSONs via the Valhalla API
-```
+| Column Name | Type | Description | Example |
+|------------|------|-------------|---------|
+| `Provider Name` | String | Restaurant/store name | "Dominos Pizza" |
+| `Provider ID` | String | Unique provider identifier | "DOM123" |
+| `network_lat` | Float | Latitude coordinate | 28.6139 |
+| `network_long` | Float | Longitude coordinate | 77.2090 |
+| `bpp id` | String | Business platform provider ID | "ondc-bpp-123" |
+| `Seller Pincode` | String/Integer | Store pincode | "110001" |
 
----
+### 2. Command Line Arguments
 
-## 🧩 About the Code
+| Parameter | Flag | Type | Default | Description |
+|-----------|------|------|---------|-------------|
+| `excel` | `-e`, `--excel` | String | **Required** | Path to input Excel file |
+| `output_excel` | `-oe`, `--output-excel` | String | `[input]_with_zones.xlsx` | Path for output Excel file |
+| `output_dir` | `-od`, `--output-dir` | String | `batch_output` | Directory for GeoJSON files |
+| `distances` | `-d`, `--distances` | Float[] | `[3, 4, 5, 6]` | Distance zones in kilometers |
+| `mode` | `-m`, `--mode` | String | `motorcycle` | Transportation mode |
+| `workers` | `-w`, `--workers` | Integer | `5` | Number of parallel workers |
+| `skip_existing` | `--no-skip-existing` | Boolean | `True` | Skip already processed rows |
 
-The included Python script generates isodistance and isochrone polygons using routing engines and exports them as GeoJSON files.
-All final outputs are stored inside the **`batch_output/`** directory.
-
----
-
-# 🎯 Traffic Model — What the Script Considers
-
-Your isochrone/isodistance zones are generated with multiple **traffic-aware adjustments**, making them significantly more realistic.
-
----
-
-## ✅ **City-Level Congestion Factors**
-
-Used based on pincode → auto-detection of city:
-
-| City      | Speed Factor | Interpretation         |
-| --------- | ------------ | ---------------------- |
-| Mumbai    | 0.45         | 55% slower             |
-| Bangalore | 0.50         | 50% slower             |
-| Delhi     | 0.52         | 48% slower             |
-| Chennai   | 0.58         | 42% slower             |
-| Others    | Custom       | Based on configuration |
-
----
-
-## ⏰ **Hour-of-Day Traffic**
-
-Reflects typical 24-hour traffic patterns:
-
-* **7–9 AM:** 0.50–0.60 (Peak morning rush)
-* **12–1 PM:** 0.70 (Lunch rush)
-* **6–9 PM:** 0.50–0.60 (Dinner/Evening peak)
-* **Late night:** 0.90–0.99 (Light traffic)
-
----
-
-## 📅 **Day-of-Week Impact**
-
-* **Weekdays:** 0.90–0.95 (Busier)
-* **Friday:** 0.90 (Worst)
-* **Saturday:** 1.00 (Better)
-* **Sunday:** 1.05 (Best)
-
----
-
-## 🏙️ **Area Type Adjustments**
-
-* **CBD:** 0.55 (Most congested)
-* **Commercial:** 0.65
-* **Residential:** 0.80
-* **Suburban:** 0.85
-
----
-
-## 🌦️ **Seasonal Adjustment**
-
-* **Monsoon (Jun–Sep):** 0.75
-* **Winter (Oct–Feb):** 0.95
-* **Summer (Mar–May):** 0.90
-
----
-
-## 📘 Optional: Historical Learning
-
-If you upload **delivery history CSV**, the engine auto-learns:
-
-* Actual deliverable speeds per **pincode + hour + day**
-* Overrides default factors
-* Improves zone accuracy over time
-
----
-
-# 📊 Output Generated Per Restaurant
-
-Each restaurant gets **one GeoJSON** containing **7 computed zones**:
-
-### **Distance-Based Zones (Traffic Adjusted)**
-
-* 3 km
-* 4 km
-* 5 km
-* 6 km
-
-Each of these gets **adjusted** based on traffic factor.
-
-### **Time-Based Zones (Automatically Realistic)**
-
-* 15 minutes
-* 20 minutes
-* 30 minutes
-
-No adjustments required — Valhalla naturally considers road speeds.
-
----
-
-## 🗂️ File Naming Format
-
-```
-{bpp_id}+{provider_name}+{provider_id}+{pincode}.geojson
+### 3. Valhalla API Request Payload
+```json
+{
+  "locations": [
+    {
+      "lat": 28.6139,
+      "lon": 77.2090
+    }
+  ],
+  "costing": "motorcycle",
+  "contours": [
+    {
+      "distance": 3
+    }
+  ],
+  "polygons": true,
+  "denoise": 0.3,
+  "generalize": 50
+}
 ```
 
-### Example
+**Payload Parameters:**
 
-```
-seller.tipplr.in+Paradise_Biryani+PB123+560001.geojson
-```
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `locations` | Array | Array of coordinate objects (lat, lon) |
+| `costing` | String | Transportation mode: `motorcycle`, `auto` (car), `bicycle`, `pedestrian` |
+| `contours` | Array | Array of distance objects in kilometers |
+| `polygons` | Boolean | Return polygon geometry (true) |
+| `denoise` | Float | Smoothing factor (0-1) |
+| `generalize` | Integer | Polygon simplification in meters |
 
 ---
 
-## 📄 Sample GeoJSON Structure
+## Output Parameters
 
+### 1. GeoJSON File (per provider)
+
+**Filename Format:** `[bpp_id]+[provider_name]+[provider_id]+[pincode].geojson`
+
+**Structure:**
 ```json
 {
   "type": "FeatureCollection",
   "metadata": {
-    "provider_name": "Paradise Biryani",
-    "center_lat": 12.9716,
-    "center_lon": 77.5946,
-    "pincode": "560001",
+    "provider_name": "Dominos Pizza",
+    "center_lat": 28.6139,
+    "center_lon": 77.2090,
     "mode": "motorcycle",
-    "total_zones": 7,
+    "total_zones": 4,
     "distance_zones": [3, 4, 5, 6],
-    "time_zones": [15, 20, 30],
-    "generated_at": "2024-12-11T10:30:00Z",
-    "generation_conditions": {
-      "city": "bangalore",
-      "area_type": "commercial",
-      "season": "winter",
-      "traffic_factor": 0.175,
-      "traffic_condition": "Very Heavy",
-      "speed_reduction_percent": 82.5,
-      "day_of_week": "Friday",
-      "hour": 19,
-      "has_learned_data": false
-    }
+    "generated_at": "2024-12-24T10:30:00Z"
   },
   "features": [
     {
       "type": "Feature",
-      "properties": {
-        "provider_name": "Paradise Biryani",
-        "zone_type": "distance",
-        "label": "3km",
-        "api": "valhalla",
-        "traffic_aware": true,
-        "traffic_model": "historical",
-        "requested_distance_km": 3,
-        "adjusted_distance_km": 0.53,
-        "city": "bangalore",
-        "area_type": "commercial",
-        "traffic_condition": "Very Heavy",
-        "speed_reduction_percent": 82.5
-      },
       "geometry": {
         "type": "Polygon",
-        "coordinates": [[ ... ]]
+        "coordinates": [[...]]
+      },
+      "properties": {
+        "provider_name": "Dominos Pizza",
+        "zone_type": "distance",
+        "distance_km": 3,
+        "mode": "motorcycle",
+        "center_lat": 28.6139,
+        "center_lon": 77.2090,
+        "label": "3km"
       }
     }
-    // + 6 more zones
   ]
 }
 ```
 
+### 2. Updated Excel File
+
+**New Columns Added:**
+
+| Column Name | Type | Description | Example |
+|-------------|------|-------------|---------|
+| `zones_file` | String | Path to generated GeoJSON file | `batch_output/ondc-bpp-123+Dominos_Pizza+DOM123+110001.geojson` |
+| `zones_count` | Integer | Number of zones generated | `4` |
+| `processing_status` | String | Processing result | `success` or `failed: [error]` |
+
+### 3. Summary JSON File
+
+**Filename:** `batch_output/batch_summary.json`
+```json
+{
+  "newly_processed": 600,
+  "already_in_excel": 300,
+  "file_exists_added": 50,
+  "total_providers": 950,
+  "successful": 595,
+  "failed": 5,
+  "total_zones_generated": 2380,
+  "total_time": 1800.50,
+  "average_time_per_provider": 3.0,
+  "timestamp": "2024-12-24T10:30:00Z",
+  "results": [
+    {
+      "status": "success",
+      "excel_idx": 0,
+      "name": "Dominos Pizza",
+      "filepath": "batch_output/ondc-bpp-123+Dominos_Pizza+DOM123+110001.geojson",
+      "zones_count": 4,
+      "elapsed": 2.3,
+      "error": null
+    }
+  ]
+}
+```
+
+**Summary Fields:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `newly_processed` | Integer | Number of providers processed in this run |
+| `already_in_excel` | Integer | Providers skipped (already had zones_file) |
+| `file_exists_added` | Integer | Existing files added to Excel |
+| `total_providers` | Integer | Total providers in Excel |
+| `successful` | Integer | Successfully processed count |
+| `failed` | Integer | Failed processing count |
+| `total_zones_generated` | Integer | Total zone polygons created |
+| `total_time` | Float | Total processing time in seconds |
+| `average_time_per_provider` | Float | Average time per provider in seconds |
+| `timestamp` | String | ISO 8601 timestamp |
+| `results` | Array | Detailed results for each provider |
+
 ---
 
-# 🔧 How Traffic Adjustment Works
+## Transportation Mode Mapping
 
-### Example: **Bangalore, Friday, 7 PM (Dinner Rush)**
-
-```
-City Factor       = 0.50
-Hour Factor       = 0.55
-Day Factor        = 0.90
-Area Type Factor  = 0.65
-Season Factor     = 0.95
-```
-
-### Combined Factor
-
-```
-Combined = 0.50 × 0.55 × 0.90 × 0.65 × 0.95
-         = 0.153
-```
-
-This means **84.7% slower traffic** than free-flow conditions.
-
-### Adjusted Distance Outputs
-
-| Requested | Adjusted |
-| --------- | -------- |
-| 3 km      | 0.46 km  |
-| 4 km      | 0.61 km  |
-| 5 km      | 0.77 km  |
-| 6 km      | 0.92 km  |
-
-### Time Zones (Unaffected)
-
-* 15 min
-* 20 min
-* 30 min
-
-Valhalla adapts naturally using travel-time routing.
+| Input Mode | Valhalla API Mode |
+|------------|-------------------|
+| `motorcycle` | `motorcycle` |
+| `car` | `auto` |
+| `auto` | `auto` |
+| `bike` | `bicycle` |
+| `bicycle` | `bicycle` |
+| `walk` | `pedestrian` |
+| `walking` | `pedestrian` |
 
 ---
+
+## Example Usage
+```bash
+# Basic usage - all defaults
+python smart_batch_processing.py --excel providers.xlsx
+
+# Custom distances and mode
+python smart_batch_processing.py --excel providers.xlsx --distances 2 5 8 --mode car
+
+# More parallel workers for faster processing
+python smart_batch_processing.py --excel providers.xlsx --workers 10
+
+# Force reprocess everything
+python smart_batch_processing.py --excel providers.xlsx --no-skip-existing
+```

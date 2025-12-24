@@ -1,0 +1,211 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "provider_name": "The Pizza Project by Oven story",
+    "center_lat": 8.0,
+    "center_lon": 77.0,
+    "mode": "motorcycle",
+    "total_zones": 4,
+    "distance_zones": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "generated_at": "2025-12-17T19:00:31.110281Z"
+  },
+  "features": [
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 3.0,
+        "metric": "distance",
+        "provider_name": "The Pizza Project by Oven story",
+        "zone_type": "distance",
+        "distance_km": 3,
+        "mode": "motorcycle",
+        "center_lat": 8.0,
+        "center_lon": 77.0,
+        "label": "3km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              77.0,
+              8.00075
+            ],
+            [
+              76.99925,
+              8.0
+            ],
+            [
+              77.0,
+              7.99925
+            ],
+            [
+              77.00075,
+              8.0
+            ],
+            [
+              77.0,
+              8.00075
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    },
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 4.0,
+        "metric": "distance",
+        "provider_name": "The Pizza Project by Oven story",
+        "zone_type": "distance",
+        "distance_km": 4,
+        "mode": "motorcycle",
+        "center_lat": 8.0,
+        "center_lon": 77.0,
+        "label": "4km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              77.0,
+              8.0008
+            ],
+            [
+              76.9992,
+              8.0
+            ],
+            [
+              77.0,
+              7.9992
+            ],
+            [
+              77.0008,
+              8.0
+            ],
+            [
+              77.0,
+              8.0008
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    },
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 5.0,
+        "metric": "distance",
+        "provider_name": "The Pizza Project by Oven story",
+        "zone_type": "distance",
+        "distance_km": 5,
+        "mode": "motorcycle",
+        "center_lat": 8.0,
+        "center_lon": 77.0,
+        "label": "5km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              77.0,
+              8.000833
+            ],
+            [
+              76.999166,
+              8.0
+            ],
+            [
+              77.0,
+              7.999166
+            ],
+            [
+              77.000833,
+              8.0
+            ],
+            [
+              77.0,
+              8.000833
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    },
+    {
+      "properties": {
+        "fill-opacity": 0.33,
+        "fillColor": "#bf4040",
+        "opacity": 0.33,
+        "fill": "#bf4040",
+        "fillOpacity": 0.33,
+        "color": "#bf4040",
+        "contour": 6.0,
+        "metric": "distance",
+        "provider_name": "The Pizza Project by Oven story",
+        "zone_type": "distance",
+        "distance_km": 6,
+        "mode": "motorcycle",
+        "center_lat": 8.0,
+        "center_lon": 77.0,
+        "label": "6km"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              77.0,
+              8.000857
+            ],
+            [
+              76.999285,
+              8.000714
+            ],
+            [
+              76.999285,
+              7.999285
+            ],
+            [
+              77.000714,
+              7.999285
+            ],
+            [
+              77.000714,
+              8.000714
+            ],
+            [
+              77.0,
+              8.000857
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "type": "Feature"
+    }
+  ]
+}
