@@ -184,14 +184,14 @@
 ## Example Usage
 ```bash
 # Basic usage - all defaults
-python smart_batch_processing.py --excel providers.xlsx
+python geoson_generator.py --excel providers.xlsx
 
 # Custom distances and mode
-python smart_batch_processing.py --excel providers.xlsx --distances 2 5 8 --mode car
+python geoson_generator.py --excel providers.xlsx --distances 2 5 8 --mode car
 
 # More parallel workers for faster processing
-python smart_batch_processing.py --excel providers.xlsx --workers 10
+python geoson_generator.py --excel providers.xlsx --workers 10
 
 # Force reprocess everything
-python smart_batch_processing.py --excel providers.xlsx --no-skip-existing
+python geoson_generator.py --excel providers.xlsx --no-skip-existing
 ```
