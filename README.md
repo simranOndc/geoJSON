@@ -1,6 +1,6 @@
 # Smart Isodistance Zone Generator - API Documentation
 
-## API Used
+## Open source library and API Used
 
 ### Valhalla Isochrone API
 **Endpoint:** `https://valhalla1.openstreetmap.de/isochrone`
